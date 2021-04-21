@@ -5,6 +5,7 @@ var accessRouter = require('./router/accessRouter').router;
 var customerRouter = require('./router/customerRouter').router;
 var simpleRouter = require('./router/simpleRouter').router;
 var jwtUtils = require('./utils/jwt.utils');
+var html = require('./send/html');
 var moment = require('moment');  
 
 const PORT = process.env.PORT || 5000
@@ -29,7 +30,7 @@ server.use(bodyParser.json());
 //configure routes
 server.get('/',function(req, res){
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1>serveur Node de customotel</h1>')
+    res.status(200).send(html.home())
 });
 
 var verifAccessDashoard =  function(req, res, next){
