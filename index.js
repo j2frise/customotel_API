@@ -7,6 +7,7 @@ var simpleRouter = require('./router/simpleRouter').router;
 var jwtUtils = require('./utils/jwt.utils');
 var moment = require('moment');  
 
+const PORT = process.env.PORT || 5000
 
 var models = require('./models');
 var asyncLib = require('async');
@@ -71,6 +72,6 @@ server.use('/access', [verifAccessDashoard, accessRouter]);
 server.use('/client', [verifAccessAPI, customerRouter]);
 
 //Launch server
-server.listen(3300, function(){
-    console.log("serveur customotel en marche :)");
+server.listen(PORT, function(){
+    console.log("serveur customotel en marche? COOL :)");
 });

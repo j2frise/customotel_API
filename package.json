@@ -1,27 +1,34 @@
 {
-  "name": "leeberal-api",
+  "name": "customotel-api",
   "version": "1.0.0",
-  "description": "API des routes de l'application leeberal",
-  "main": "server.js",
+  "description": "API des routes de l'application customotel",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zberrichi/Leeberal_API.git"
+    "url": "git+https://github.com/j2frise/customotel_API.git"
   },
   "keywords": [
     "server",
     "http",
     "api",
-    "rest"
+    "rest",
+    "heroku",
+    "terraform",
+    "docker"
   ],
   "author": "jarce boukoro",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zberrichi/Leeberal_API/issues"
+    "url": "https://github.com/j2frise/customotel_API/issues"
   },
-  "homepage": "https://github.com/zberrichi/Leeberal_API#readme",
+  "engines": {
+    "node": "12.x"
+  },
+  "homepage": "https://github.com/j2frise/customotel_API#readme",
   "dependencies": {
     "agora-access-token": "^2.0.4",
     "async": "^3.2.0",
