@@ -16,7 +16,7 @@ module.exports = {
           }
         }
       }).then(function(list) {
-        if (list) {
+        if (list.length) {
           res.status(200).json({"status":200, "data":list});
         } else {
           res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });

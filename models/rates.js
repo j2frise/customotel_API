@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Rates.belongsTo(models.Users, {
+      models.Rates.belongsTo(models.User_hostels, {
         foreignKey: {
           allowNull: false
         }
@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Rates.init({
     rating: DataTypes.INTEGER,
-    comment: DataTypes.TEXT
+    comment: DataTypes.TEXT,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Rates',

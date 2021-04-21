@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     app_id: DataTypes.STRING,
     name: DataTypes.STRING,
     shortname: DataTypes.STRING,
-    logo: DataTypes.STRING,
-    app_secret: DataTypes.STRING,
+    logo: DataTypes.TEXT,
+    token: DataTypes.STRING,
     address: DataTypes.TEXT,
     deletedAt: DataTypes.DATE
   }, {

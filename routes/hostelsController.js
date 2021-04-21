@@ -2,13 +2,64 @@
 var bcrypt = require('bcryptjs');
 var models = require('../models');
 var asyncLib = require('async');
-var html = require('../send/html')
+var html = require('../send/html');
 const { Op } = require("sequelize");
 var jwtUtils = require('../utils/jwt.utils');
 var moment = require('moment');
 
 //Routes
 module.exports = {
+  isConnect: function(req, res){
+    return res.status(200).json({'status':200, 'response': req.user.hostelId?true:false});
+  },
+
+  generateToken: function(req, res){
+    if(!req.user.isAdmin){
+      return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
+    }
+
+    asyncLib.waterfall([
+      function(done) {
+        //verify hostel exist
+        models.Hostels.findOne({
+          where: {
+            id: req.user.hostelId,
+            deletedAt: {
+              [Op.eq]: null
+            }
+          }
+        }).then(function(found) {
+          done(null, found);
+        }).catch(function(err) {
+          res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+        });
+      },
+      function(found, done){
+        if (found) {
+          var token = jwtUtils.generateTokenForHostel(found.id, found.app_id); 
+          found.update({token: token})
+          .then(function() {
+            done(found, token);
+          }).catch(function(err) {
+              return res.status(500).json({'status':500, 'response': 'Erreur lors de la modification'});
+          });  
+        } else {
+            return res.status(409).json({'status':404, 'response': 'cet hotel n\'est pas enregistré'});
+        }
+      }
+    ], function(found, token) {
+      if (found) {
+        return res.status(201).json({
+          'status':201,
+          'data':  token,
+          'response': 'Token généré avec succès'
+        });
+      } else {
+          return res.status(409).json({'status':404, 'response': 'opération échouée'});
+      }
+    });
+  },
+
   loginInSpace: function(req, res){
     //get params
 
@@ -245,7 +296,7 @@ module.exports = {
   createUserAccount: function(req, res){
     //get params
     if(!req.user.isAdmin){
-        return res.status(500).json({'status':503, 'response': 'accès interdit ou incorrect'});
+        return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
     }
     var email = req.body.email;
     var role = req.body.role;
@@ -391,7 +442,7 @@ module.exports = {
 
   subscriptionHotel:function(req, res){
     if(!req.user.isAdmin){
-        return res.status(500).json({'status':503, 'response': 'accès interdit ou incorrect'});
+        return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
     }
 
     var subId = req.body.subId;
@@ -485,7 +536,7 @@ module.exports = {
 
   subscribeList:function(req, res){
     if(!req.user.isAdmin){
-        return res.status(500).json({'status':503, 'response': 'accès interdit ou incorrect'});
+        return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
     }
 
     models.Memberships.findAll({
@@ -493,7 +544,7 @@ module.exports = {
         where: {HostelId: req.user.hostelId},
         order: [['createdAt', 'DESC']]
     }).then(function(list) {
-        if (list) {
+        if (list.length) {
             res.status(200).json({"status":200, "data":list});
         } else {
             res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
@@ -505,7 +556,7 @@ module.exports = {
 
   subscribeCurrent:function(req, res){
     if(!req.user.isAdmin){
-        return res.status(500).json({'status':503, 'response': 'accès interdit ou incorrect'});
+        return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
     }
 
     models.Memberships.findOne({
@@ -534,7 +585,7 @@ module.exports = {
           }
         }
       }).then(function(list) {
-        if (list) {
+        if (list.length) {
           res.status(200).json({"status":200, "data":list});
         } else {
           res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
@@ -556,7 +607,7 @@ module.exports = {
 
     if(firstname){userProfileAttributes.firstname = firstname}
     if(lastname){userProfileAttributes.lastname = lastname}
-    if(status){userAttributes.status = status}
+    if(status){userAttributes.deletedAt = moment().format("YYYY-MM-DD HH:mm:ss")}
     if(password){userAttributes.password = password}
     if(role){userAttributes.role = role}
 
@@ -616,5 +667,123 @@ module.exports = {
         }
     });
 
+  },
+
+  clientList: function(req, res){
+    if(!req.user.isAdmin){
+      return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
+    }
+
+    models.Customers.findAll({
+        include : [
+          { 
+            model: models.User_hostels,
+            required: true,
+            attributes: ["id", "is_admin", "role", "createdAt"],
+            include : [{model: models.Users, required: true}],
+            where: {HostelId: req.user.hostelId}
+          }
+        ],
+        where: {
+          deletedAt: {
+            [Op.eq]: null
+          }
+        }
+      }).then(function(list) {
+        if (list.length) {
+          res.status(200).json({"status":200, "data":list});
+        } else {
+          res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
+        }
+      }).catch(function(err) {
+        res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+      });
+  },
+
+  clientMyList: function(req, res){
+
+    models.Customers.findAll({
+        include : [
+          { 
+            model: models.User_hostels,
+            required: true,
+            attributes: ["id", "is_admin", "role", "createdAt"],
+            where: {HostelId: req.user.hostelId, UserId: req.user.userId}
+          }
+        ],
+        where: {
+          deletedAt: {
+            [Op.eq]: null
+          }
+        }
+      }).then(function(list) {
+        if (list.length) {
+          res.status(200).json({"status":200, "data":list});
+        } else {
+          res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
+        }
+      }).catch(function(err) {
+        res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+      });
+  },
+
+  rateList: function(req, res){
+    if(!req.user.isAdmin){
+      return res.status(503).json({'status':503, 'response': 'accès interdit ou incorrect'});
+    }
+
+    models.Rates.findAll({
+        include : [
+          {model: models.Customers, required: true},
+          { 
+            model: models.User_hostels,
+            required: true,
+            attributes: ["id", "is_admin", "role", "createdAt"],
+            include : [{model: models.Users, required: true}],
+            where: {HostelId: req.user.hostelId}
+          }
+        ],
+        where: {
+          deletedAt: {
+            [Op.eq]: null
+          }
+        }
+      }).then(function(list) {
+        if (list.length) {
+          res.status(200).json({"status":200, "data":list});
+        } else {
+          res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
+        }
+      }).catch(function(err) {
+        res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+      });
+  },
+
+  rateMyList: function(req, res){
+
+    models.Rates.findAll({
+        include : [
+          {model: models.Customers, required: true},
+          { 
+            model: models.User_hostels,
+            required: true,
+            attributes: ["id", "is_admin", "role", "createdAt"],
+            where: {HostelId: req.user.hostelId, UserId: req.user.userId}
+          }
+        ],
+        where: {
+          deletedAt: {
+            [Op.eq]: null
+          }
+        }
+      }).then(function(list) {
+        if (list.length) {
+          res.status(200).json({"status":200, "data":list});
+        } else {
+          res.status(404).json({ "status": 404, "response": "Aucune donnée trouvée" });
+        }
+      }).catch(function(err) {
+        res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+      });
   }
 }

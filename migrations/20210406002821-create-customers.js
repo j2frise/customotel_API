@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      userHostelId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'User_hostels',
           key: 'id'
         }
       },
@@ -37,16 +37,20 @@ module.exports = {
         type: Sequelize.STRING
       },
       uniqid: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       phone: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
         allowNull: true,
         type: Sequelize.STRING
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

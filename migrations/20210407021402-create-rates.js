@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      userHostelId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'User_hostels',
           key: 'id'
         }
       },
@@ -31,6 +31,10 @@ module.exports = {
       comment: {
         allowNull: true,
         type: Sequelize.TEXT
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

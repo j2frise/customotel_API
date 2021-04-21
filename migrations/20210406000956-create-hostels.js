@@ -24,9 +24,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      app_secret: {
+      token: {
         allowNull: true,
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       address: {
         allowNull: false,

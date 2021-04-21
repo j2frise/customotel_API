@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Customers.hasMany(models.Rates);
-      models.Customers.belongsTo(models.Users, {
+      models.Customers.belongsTo(models.User_hostels, {
         foreignKey: {
           allowNull: false
         }
@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     sexe: DataTypes.STRING,
     uniqid: DataTypes.STRING,
     phone: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Customers',
