@@ -930,8 +930,8 @@ module.exports = {
                                       <td align='center' bgcolor='#1A54BA' style='background:#1A54BA; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;'>
                                         <div class="contentEditableContainer contentTextEditable">
                                           <div class="contentEditable" align='center'>
-                                            <a target='_blank' href='${link}' class='link2' style='color:#ffffff;margin-right: 0px'>Découvrez le service</a>
-                                            <a target='_blank' href='https://documenter.getpostman.com/view/11471142/TzJvewxp#88fc5a10-ba7f-40f4-9bec-6eb106fff5af' class='link2' style='background: #FFC850; color:#ffffff;'>Voir la documentation API</a>
+                                            <a target='_blank' href='${link}' class='link2' style='color:#ffffff;margin-right: 50px'>Découvrez le service</a> | 
+                                            <a target='_blank' href='https://documenter.getpostman.com/view/11471142/TzJvewxp#88fc5a10-ba7f-40f4-9bec-6eb106fff5af' class='link2' style='color:#ffffff;margin-left: 50px'>Voir la documentation API</a>
                                           </div>
                                         </div>
                                       </td>
