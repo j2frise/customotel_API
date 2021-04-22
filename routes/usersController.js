@@ -72,7 +72,7 @@ module.exports = {
             done(null, userFound);
           })
           .catch(function(err) {
-            return res.status(500).json({'status':500, 'response': 'impossible de vérifier les données de l\'hotel, Veuillez réessayer plus tard'});
+            return res.status(500).json({'status':500, 'response': err+' => (1) impossible de vérifier les données de l\'hotel, Veuillez réessayer plus tard'});
           });
         },
         function(userFound, done) {
@@ -93,7 +93,7 @@ module.exports = {
                 done(found, userFound);
               })
               .catch(function(err) {
-                return res.status(500).json({'status':500, 'response': 'impossible de vérifier l\'utilisateur, Veuillez réessayer plus tard'});
+                return res.status(500).json({'status':500, 'response': err+' => (1) impossible de vérifier l\'utilisateur, Veuillez réessayer plus tard'});
               });
             }
           }
