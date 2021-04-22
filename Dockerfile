@@ -1,13 +1,32 @@
-FROM node:12
+#Dockerfile
 
-# Create app directory
-WORKDIR /usr/src/app
+# PROD CONFIG
+FROM node as prod
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+WORKDIR /app
+
 COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+
+WORKDIR /app
+
+COPY . .
+
+ENV NODE_ENV=production
+
+CMD [ "npm", "start" ]
+
+
+# DEV CONFIG
+FROM prod as dev
+
+EXPOSE 5000
+
+ENV NODE_ENV=development
+
+RUN npm install -g nodemon
+
+RUN npm install --only=dev
+
+CMD [  "nodemon" ]

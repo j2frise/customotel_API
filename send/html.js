@@ -906,7 +906,7 @@ module.exports = {
                                   <div class="contentEditableContainer contentTextEditable">
                                     <div class="contentEditable" align='center'>
                                       <p >
-                                        Cette api est faite pour vous. Créer un compte pour vous et vos associers.
+                                        Cette api est faite pour vous. Créer un compte pour vous et vos associés.
                                         <br>
                                         <br>
                                         Notez les clients et découvrez combien ils sont notés en général

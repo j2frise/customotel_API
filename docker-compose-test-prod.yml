@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+
+  node-api-starter-db:
+    image: mongo
+    restart: always
+    container_name: node-api-starter-db
+    ports:
+      - 27017:27017 
+    volumes:
+      - node-api-starter-db:/data/db
+    networks: 
+      - node-api-starter-network
+
+  node-api-starter-app:
+    image: thisk8brd/node-api-starter-app:prod
+    build: 
+      context: .
+      target: prod
+    container_name: node-api-starter-app
+    restart: always
+    volumes: 
+      - .:/app
+    ports:
+      - "80:5000"
+    depends_on:
+      - node-api-starter-db
+    environment:
+      - MONGODB_URI=mongodb://node-api-starter-db/node-api-starter-db
+    networks: 
+      - node-api-starter-network
+
+volumes: 
+  node-api-starter-db:
+    name: node-api-starter-db
+
+networks: 
+  node-api-starter-network:
+    name: node-api-starter-network
