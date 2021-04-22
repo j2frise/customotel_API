@@ -20,6 +20,12 @@
     "host": "ec2-54-78-36-245.eu-west-1.compute.amazonaws.com",
     "dialect":  "postgres",
     "protocol": "postgres",
+    "ssl":true, 
+    "dialectOptions":{ 
+      "ssl": {
+        "require":true 
+      } 
+    },
     "use_env_variable": "DATABASE_URL"
 
   }
