@@ -906,7 +906,7 @@ module.exports = {
                                   <div class="contentEditableContainer contentTextEditable">
                                     <div class="contentEditable" align='center'>
                                       <p >
-                                        Cet api est fait pour vous. Créer un compte pour vous et vos associers.
+                                        Cette api est faite pour vous. Créer un compte pour vous et vos associers.
                                         <br>
                                         <br>
                                         Notez les clients et découvrez combien ils sont notés en général
@@ -914,7 +914,7 @@ module.exports = {
                                         <br>
                                         Enfin,
                                         <br>
-                                        <span style='color:#222222;'>Cher professionel</span>
+                                        <span style='color:#222222;'>Chers professionels</span>
                                       </p>
                                     </div>
                                   </div>
@@ -931,6 +931,7 @@ module.exports = {
                                         <div class="contentEditableContainer contentTextEditable">
                                           <div class="contentEditable" align='center'>
                                             <a target='_blank' href='${link}' class='link2' style='color:#ffffff;'>Découvrez le service</a>
+                                            <a target='_blank' href='https://documenter.getpostman.com/view/11471142/TzJvewxp#88fc5a10-ba7f-40f4-9bec-6eb106fff5af' class='link2' style='color:#ffffff;margin-left: 10px'>Voir la documentation API</a>
                                           </div>
                                         </div>
                                       </td>
