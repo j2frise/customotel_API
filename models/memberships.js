@@ -11,16 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Memberships.belongsTo(models.Subscriptions, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
-      models.Memberships.belongsTo(models.Hostels, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
+      models.Memberships.belongsTo(models.Subscriptions, { foreignKey: 'subscriptionId'});
+      models.Memberships.belongsTo(models.Hostels, { foreignKey: 'hostelId'});
     }
   };
   Memberships.init({

@@ -11,12 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Customers.hasMany(models.Rates);
-      models.Customers.belongsTo(models.User_hostels, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
+      models.Customers.hasMany(models.Rates,{ foreignKey: 'customerId'} );
+      models.Customers.belongsTo(models.User_hostels, { foreignKey: 'userHostelId'});
     }
   };
   Customers.init({

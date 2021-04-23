@@ -53,7 +53,7 @@ var verifAccessAPI =  function(req, res, next){
     } else {
         models.Memberships.findOne({
             include : [{model: models.Subscriptions, required: true}],
-            where: {HostelId: data.hostelId, is_expired: 0},
+            where: {hostelId: data.hostelId, is_expired: 0},
             order: [['createdAt', 'DESC']]
         }).then(function(current) {
             if (current) {

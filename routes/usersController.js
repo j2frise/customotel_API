@@ -87,7 +87,7 @@ module.exports = {
             } else {
               models.User_hostels.findAll({
                 attributes: ['userId', 'hostelId', 'role', 'is_admin'],
-                where: { UserId: userFound.id, deletedAt: { [Op.eq]: null } }
+                where: { userId: userFound.id, deletedAt: { [Op.eq]: null } }
               })
               .then(function(found) {
                 done(found, userFound);

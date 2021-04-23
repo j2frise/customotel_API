@@ -70,7 +70,7 @@ module.exports = {
         function(done) {
           //verify hostel exist
           models.User_hostels.findOne({
-            where: {UserId: req.user.userId, HostelId: space, deletedAt: { [Op.eq]: null } }
+            where: {userId: req.user.userId, hostelId: space, deletedAt: { [Op.eq]: null } }
           })
           .then(function(found) {
             done(null, found);
@@ -100,11 +100,11 @@ module.exports = {
           return res.status(201).json({
             'status':201,
             'data': {
-              'userId': found.UserId,
-              'hostelId': found.HostelId,
+              'userId': found.userId,
+              'hostelId': found.hostelId,
               'role': found.role,
               'isAdmin': found.is_admin,
-              'token': jwtUtils.generateTokenForUser(found.UserId, found.HostelId, found.is_admin)
+              'token': jwtUtils.generateTokenForUser(found.userId, found.hostelId, found.is_admin)
             }
           });
         } else {
@@ -133,7 +133,7 @@ module.exports = {
                     required: true
                 }
             ],
-            where: {HostelId: space, UserId: req.user.userId, deletedAt: { [Op.eq]: null } }
+            where: {hostelId: space, userId: req.user.userId, deletedAt: { [Op.eq]: null } }
           })
           .then(function(found) {
             done(found);
@@ -144,7 +144,7 @@ module.exports = {
         }
       ], function(found) {
         if (found) {
-            var token = jwtUtils.generateTokenForUser(found.UserId, found.HostelId, found.is_admin);
+            var token = jwtUtils.generateTokenForUser(found.userId, found.hostelId, found.is_admin);
             html.forgot(found.User.email, found.Hostel.name, found.Hostel.shortname, token)
             return res.status(201).json({'status':201, 'response': 'Un mail vous a été envoyé'});
         } else {
@@ -241,8 +241,8 @@ module.exports = {
         function(newHostel, subscription, userFound, done) {
             var expired = moment().add(subscription.duration, 'months').format("YYYY-MM-DD HH:mm:ss");            
             models.Memberships.create({
-                SubscriptionId: subscription.id,
-                HostelId: newHostel.id,
+                subscriptionId: subscription.id,
+                hostelId: newHostel.id,
                 expired: expired,
                 is_expired: false,
                 nb_account: 0
@@ -257,8 +257,8 @@ module.exports = {
         function(newHostel, member ,subscription, userFound, done) {
             bcrypt.hash(password, 5, function(err, bcryptedPassword){
                 models.User_hostels.create({
-                    HostelId: newHostel.id,
-                    UserId: req.user.userId,
+                    hostelId: newHostel.id,
+                    userId: req.user.userId,
                     is_admin: true,
                     role: role,
                     password: bcryptedPassword        
@@ -280,11 +280,11 @@ module.exports = {
             return res.status(201).json({
                 'status':201,
                 'data': {
-                'userId': newSpace.UserId,
-                'hostelId': newSpace.HostelId,
+                'userId': newSpace.userId,
+                'hostelId': newSpace.hostelId,
                 'role': newSpace.role,
                 'isAdmin': newSpace.is_admin,
-                'token': jwtUtils.generateTokenForUser(newSpace.UserId, newSpace.HostelId, newSpace.is_admin)
+                'token': jwtUtils.generateTokenForUser(newSpace.userId, newSpace.hostelId, newSpace.is_admin)
                 }
             });
         } else {
@@ -313,7 +313,7 @@ module.exports = {
         
         function(done){
             models.Memberships.findOne({
-                where: {HostelId: req.user.hostelId, is_expired: 0}
+                where: {hostelId: req.user.hostelId, is_expired: 0}
             })
             .then(function(memberfound){
                 done(null, memberfound);
@@ -325,7 +325,7 @@ module.exports = {
         },
         function(memberfound, done){
             models.Subscriptions.findOne({
-                where: {id: memberfound.SubscriptionId }
+                where: {id: memberfound.subscriptionId }
             })
             .then(function(subfound){
                 done(null, subfound, memberfound);
@@ -371,7 +371,7 @@ module.exports = {
             } else {
                 is_new = false;
                 models.User_hostels.findOne({
-                    where: {UserId: userFound.id, HostelId: req.user.hostelId, deletedAt: { [Op.eq]: null }}
+                    where: {userId: userFound.id, hostelId: req.user.hostelId, deletedAt: { [Op.eq]: null }}
                 })
                 .then(function(found){
                     done(null, is_new, found, memberfound, userFound);
@@ -387,8 +387,8 @@ module.exports = {
                 var password = generateHexString(7)
                 bcrypt.hash(password, 5, function(err, bcryptedPassword){
                     models.User_hostels.create({
-                        UserId: userFound.id,
-                        HostelId: req.user.hostelId,
+                        userId: userFound.id,
+                        hostelId: req.user.hostelId,
                         role: role,
                         password: bcryptedPassword,
                         is_admin: false
@@ -429,7 +429,7 @@ module.exports = {
       ], function(the_space,is_new) {
         if (the_space) {
             if(is_new){
-                var token = jwtUtils.generateTokenForUser(the_space.UserId, the_space.HostelId, the_space.is_admin);
+                var token = jwtUtils.generateTokenForUser(the_space.userId, the_space.hostelId, the_space.is_admin);
                 html.register(email, token);
             }
             html.welcome(email,the_space.Hostel.name, the_space.Hostel.shortname);
@@ -452,7 +452,7 @@ module.exports = {
           //verify hostel exist
           models.Memberships.findOne({
             include : [{model: models.Hostels, required: true}],
-            where: {HostelId: req.user.hostelId},
+            where: {hostelId: req.user.hostelId},
             order: [['createdAt', 'DESC']]
             
           })
@@ -481,8 +481,8 @@ module.exports = {
         function(subscription, memberfound, done) {
             var expired = moment().add(subscription.duration, 'months').format("YYYY-MM-DD HH:mm:ss");            
             models.Memberships.create({
-                SubscriptionId: subscription.id,
-                HostelId: req.user.hostelId,
+                subscriptionId: subscription.id,
+                hostelId: req.user.hostelId,
                 expired: expired,
                 is_expired: false,
                 nb_account: memberfound.nb_account
@@ -541,7 +541,7 @@ module.exports = {
 
     models.Memberships.findAll({
         include : [{model: models.Subscriptions, required: true}],
-        where: {HostelId: req.user.hostelId},
+        where: {hostelId: req.user.hostelId},
         order: [['createdAt', 'DESC']]
     }).then(function(list) {
         if (list.length) {
@@ -561,7 +561,7 @@ module.exports = {
 
     models.Memberships.findOne({
         include : [{model: models.Subscriptions, required: true}],
-        where: {HostelId: req.user.hostelId, is_expired: 0},
+        where: {hostelId: req.user.hostelId, is_expired: 0},
         order: [['createdAt', 'DESC']]
     }).then(function(current) {
         if (current) {
@@ -579,7 +579,7 @@ module.exports = {
         attributes: ["id", "is_admin", "role", "createdAt"],
         include : [{model: models.Users}],
         where: {
-          HostelId: req.user.hostelId,
+          hostelId: req.user.hostelId,
           deletedAt: {
             [Op.eq]: null
           }
@@ -615,7 +615,7 @@ module.exports = {
         function(done) {
           //verify hostel exist
           models.User_hostels.findOne({
-            where: {UserId: id, HostelId: req.user.hostelId}
+            where: {userId: id, hostelId: req.user.hostelId}
           })
           .then(function(found) {
             done(null, found);
@@ -638,7 +638,7 @@ module.exports = {
         },
         function(found, done) {
             models.Users.findOne({
-                where: {id: found.UserId}
+                where: {id: found.userId}
             })
             .then(function(userFound) {
                 done(null, userFound,found);
@@ -681,7 +681,7 @@ module.exports = {
             required: true,
             attributes: ["id", "is_admin", "role", "createdAt"],
             include : [{model: models.Users, required: true}],
-            where: {HostelId: req.user.hostelId}
+            where: {hostelId: req.user.hostelId}
           }
         ],
         where: {
@@ -708,7 +708,7 @@ module.exports = {
             model: models.User_hostels,
             required: true,
             attributes: ["id", "is_admin", "role", "createdAt"],
-            where: {HostelId: req.user.hostelId, UserId: req.user.userId}
+            where: {hostelId: req.user.hostelId, userId: req.user.userId}
           }
         ],
         where: {
@@ -740,7 +740,7 @@ module.exports = {
             required: true,
             attributes: ["id", "is_admin", "role", "createdAt"],
             include : [{model: models.Users, required: true}],
-            where: {HostelId: req.user.hostelId}
+            where: {hostelId: req.user.hostelId}
           }
         ],
         where: {
@@ -768,7 +768,7 @@ module.exports = {
             model: models.User_hostels,
             required: true,
             attributes: ["id", "is_admin", "role", "createdAt"],
-            where: {HostelId: req.user.hostelId, UserId: req.user.userId}
+            where: {hostelId: req.user.hostelId, userId: req.user.userId}
           }
         ],
         where: {

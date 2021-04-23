@@ -75,7 +75,7 @@ CREATE TABLE "customers" (
 
 LOCK TABLES "customers" WRITE;
 /*!40000 ALTER TABLE "customers" DISABLE KEYS */;
-INSERT INTO "customers" VALUES (3,1,'oliwia Chêne',NULL,'/assets/img/default.png',NULL,'F','CD626C68','+33751932695','oliwia.chene@hetic.net',NULL,'2021-04-21 11:23:48','2021-04-21 11:23:48');
+INSERT INTO "customers" VALUES (3,1,'oliwia Chï¿½ne',NULL,'/assets/img/default.png',NULL,'F','CD626C68','+33751932695','oliwia.chene@hetic.net',NULL,'2021-04-21 11:23:48','2021-04-21 11:23:48');
 /*!40000 ALTER TABLE "customers" ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +176,7 @@ CREATE TABLE "rates" (
 
 LOCK TABLES "rates" WRITE;
 /*!40000 ALTER TABLE "rates" DISABLE KEYS */;
-INSERT INTO "rates" VALUES (2,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:26:45','2021-04-21 13:26:45'),(3,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:28:44','2021-04-21 13:28:44'),(4,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:32:45','2021-04-21 13:32:45'),(5,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:36:20','2021-04-21 13:36:20'),(6,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:41:23','2021-04-21 13:41:23'),(7,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:48:29','2021-04-21 13:48:29'),(8,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:53:09','2021-04-21 13:53:09'),(9,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:55:11','2021-04-21 13:55:11'),(10,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:56:28','2021-04-21 13:56:28'),(11,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 13:56:57','2021-04-21 13:56:57'),(12,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 14:06:55','2021-04-21 14:06:55'),(13,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 14:07:43','2021-04-21 14:07:43'),(14,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 14:08:16','2021-04-21 14:08:16'),(15,1,3,9,'Elle est très sage et a même nettoyé la chambre',NULL,'2021-04-21 14:09:03','2021-04-21 14:09:03');
+INSERT INTO "rates" VALUES (2,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:26:45','2021-04-21 13:26:45'),(3,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:28:44','2021-04-21 13:28:44'),(4,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:32:45','2021-04-21 13:32:45'),(5,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:36:20','2021-04-21 13:36:20'),(6,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:41:23','2021-04-21 13:41:23'),(7,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:48:29','2021-04-21 13:48:29'),(8,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:53:09','2021-04-21 13:53:09'),(9,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:55:11','2021-04-21 13:55:11'),(10,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:56:28','2021-04-21 13:56:28'),(11,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 13:56:57','2021-04-21 13:56:57'),(12,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 14:06:55','2021-04-21 14:06:55'),(13,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 14:07:43','2021-04-21 14:07:43'),(14,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 14:08:16','2021-04-21 14:08:16'),(15,1,3,9,'Elle est trï¿½s sage et a mï¿½me nettoyï¿½ la chambre',NULL,'2021-04-21 14:09:03','2021-04-21 14:09:03');
 /*!40000 ALTER TABLE "rates" ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +232,7 @@ CREATE TABLE "subscriptions" (
 
 LOCK TABLES "subscriptions" WRITE;
 /*!40000 ALTER TABLE "subscriptions" DISABLE KEYS */;
-INSERT INTO "subscriptions" VALUES (1,'Gold','Un tout en un',50,100,'https://i.ibb.co/D7T7d0W/gold.png',1,NULL,'2021-04-06 04:01:45','2021-04-06 04:01:45'),(2,'Silver','Les meilleurs résultats',15,39,'https://i.ibb.co/Gd4yxbZ/silver.png',1,NULL,'2021-04-06 04:01:45','2021-04-06 04:01:45'),(3,'Basic','Pack starter',0,10,'https://i.ibb.co/CzvgyK5/basic.png',1,NULL,'2021-04-06 04:03:37','2021-04-06 04:03:37');
+INSERT INTO "subscriptions" VALUES (1,'Gold','Un tout en un',50,100,'https://i.ibb.co/D7T7d0W/gold.png',1,NULL,'2021-04-06 04:01:45','2021-04-06 04:01:45'),(2,'Silver','Les meilleurs rï¿½sultats',15,39,'https://i.ibb.co/Gd4yxbZ/silver.png',1,NULL,'2021-04-06 04:01:45','2021-04-06 04:01:45'),(3,'Basic','Pack starter',0,10,'https://i.ibb.co/CzvgyK5/basic.png',1,NULL,'2021-04-06 04:03:37','2021-04-06 04:03:37');
 /*!40000 ALTER TABLE "subscriptions" ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,7 +267,7 @@ CREATE TABLE "user_hostels" (
 
 LOCK TABLES "user_hostels" WRITE;
 /*!40000 ALTER TABLE "user_hostels" DISABLE KEYS */;
-INSERT INTO "user_hostels" VALUES (1,1,1,'$2a$05$E6YIq2oDV/zTtlURSShCTOYwizKjhLSFtJK4DDgNL7GhC93tS/ZJ.','Gérant',1,NULL,'2021-04-20 22:55:55','2021-04-20 22:55:55');
+INSERT INTO "user_hostels" VALUES (1,1,1,'$2a$05$E6YIq2oDV/zTtlURSShCTOYwizKjhLSFtJK4DDgNL7GhC93tS/ZJ.','Gï¿½rant',1,NULL,'2021-04-20 22:55:55','2021-04-20 22:55:55');
 /*!40000 ALTER TABLE "user_hostels" ENABLE KEYS */;
 UNLOCK TABLES;
 

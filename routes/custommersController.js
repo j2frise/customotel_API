@@ -113,7 +113,7 @@ module.exports = {
                 //verify hostel exist
                 if(userFound){
                     models.User_hostels.findOne({
-                        where: {UserId: userFound.id, HostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
+                        where: {userId: userFound.id, hostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
                     })
                     .then(function(found) {
                         done(null, found);
@@ -142,12 +142,12 @@ module.exports = {
               }
             }
           ], function(found) {
-              console.log(found.HostelId, req.data.apiKey, found.UserId);
+              console.log(found.hostelId, req.data.apiKey, found.userId);
             if (found) {
               return res.status(201).json({
                 'status':201,
                 'data': {
-                  'token': jwtUtils.generateTokenForHostel(found.HostelId, req.data.apiKey, found.UserId)
+                  'token': jwtUtils.generateTokenForHostel(found.hostelId, req.data.apiKey, found.userId)
                 }
               });
             } else {
@@ -185,7 +185,7 @@ module.exports = {
         asyncLib.waterfall([
             function(done){
                 models.User_hostels.findOne({
-                    where: {UserId : req.data.userId, HostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
+                    where: {userId : req.data.userId, hostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
                 })
                 .then(function(found) {
                     done(null, found);
@@ -215,7 +215,7 @@ module.exports = {
                 //verify hostel exist
                 if(!customerFound){
                     models.Customers.create({
-                        UserHostelId: found.id,
+                        userHostelId: found.id,
                         fullname: fullname,
                         pseudo: pseudo,
                         avatar: avatar,
@@ -259,7 +259,7 @@ module.exports = {
             function(done){
                 models.User_hostels.findOne({
                     include:[{model: models.Hostels, required: true}],
-                    where: {UserId : req.data.userId, HostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
+                    where: {userId : req.data.userId, hostelId: req.data.hostelId, deletedAt: { [Op.eq]: null } }
                 })
                 .then(function(found) {
                     done(null, found);
@@ -272,8 +272,8 @@ module.exports = {
               //verify hostel exist
               if(found){
                 models.Rates.create({
-                    UserHostelId: found.id,
-                    CustomerId: clientId,
+                    userHostelId: found.id,
+                    customerId: clientId,
                     rating: rating,
                     comment: comment
                 })
@@ -290,7 +290,7 @@ module.exports = {
             },
             function(newRate, found, done){
                 models.Customers.findOne({
-                    where: {id : newRate.CustomerId }
+                    where: {id : newRate.customerId }
                 })
                 .then(function(customer) {
                     done(newRate, customer, found);
