@@ -313,7 +313,7 @@ module.exports = {
         
         function(done){
             models.Memberships.findOne({
-                where: {hostelId: req.user.hostelId, is_expired: 0}
+                where: {hostelId: req.user.hostelId, is_expired: true}
             })
             .then(function(memberfound){
                 done(null, memberfound);
@@ -561,7 +561,7 @@ module.exports = {
 
     models.Memberships.findOne({
         include : [{model: models.Subscriptions, required: true}],
-        where: {hostelId: req.user.hostelId, is_expired: 0},
+        where: {hostelId: req.user.hostelId, is_expired: true},
         order: [['createdAt', 'DESC']]
     }).then(function(current) {
         if (current) {

@@ -43,14 +43,14 @@ module.exports = {
                     include: [
                       {model: models.Users, required: true}
                     ],
-                    where: {is_admin: 1}
+                    where: {is_admin: true}
                   }
                 ]
               },
               {model: models.Subscriptions, required: true}
             ],
             where: {
-              is_expired: 0,
+              is_expired: true,
               expired: {
                 [Op.lte]: current_date
               }
