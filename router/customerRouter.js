@@ -7,7 +7,7 @@ exports.router = (function(){
     var customerRouter = express.Router();
     
     //Hostels routes
-    customerRouter.route('/search').get(clientCtrl.searchCustomer);
+    customerRouter.route('/search').post(clientCtrl.searchCustomer);
 
     //Users routes
     customerRouter.route('/login').post(clientCtrl.loginInSpace);
