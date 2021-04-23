@@ -212,7 +212,7 @@ module.exports = {
                     done(null, newHostel,userFound);
                 })
                 .catch(function(err){
-                    return res.status(500).json({'status':500, 'response': err+' => opération échouée'});
+                    return res.status(500).json({'status':500, 'response': 'opération échouée'});
                 });
             } 
             else {
