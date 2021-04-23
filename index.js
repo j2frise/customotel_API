@@ -63,7 +63,7 @@ var verifAccessAPI =  function(req, res, next){
                 res.status(503).json({ "status": 503, "response": "Veuillez renouveller votre abonnement" });
             }
         }).catch(function(err) {
-            res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
+            res.status(500).json({"status": 500, "response": err+" => Erreur, veuillez réessayer plutard" });
         });
     } 
 }

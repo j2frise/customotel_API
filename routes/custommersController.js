@@ -143,15 +143,16 @@ module.exports = {
             }
           ], function(found) {
               
-            // if (found) {
+            if (found) {
               return res.status(201).json({
                 'status':201,
-                'data': "test"
+                'data': {
+                  'token': jwtUtils.generateTokenForHostel(found.hostelId, req.data.apiKey, found.userId)
+                }
               });
-              /*
             } else {
                 return res.status(500).json({'status':500, 'response': 'Erreur, Veuillez réessayer plus tard'});
-            } */
+            }
         });
     },
 
