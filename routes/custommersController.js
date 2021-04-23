@@ -106,7 +106,7 @@ module.exports = {
                 done(null, userFound);
               })
               .catch(function(err) {
-                return res.status(500).json({'status':500, 'response': 'impossible de vérifier l\'espace utilisateur, Veuillez réessayer plus tard'});
+                return res.status(500).json({'status':500, 'response': err+' => (2) impossible de vérifier l\'espace utilisateur, Veuillez réessayer plus tard'});
               });
             },
             function(userFound, done) {
@@ -119,7 +119,7 @@ module.exports = {
                         done(null, found);
                     })
                     .catch(function(err) {
-                        return res.status(500).json({'status':500, 'response': err+' => impossible de vérifier l\'espace utilisateur, Veuillez réessayer plus tard'});
+                        return res.status(500).json({'status':500, 'response': err+' => (2) impossible de vérifier l\'espace utilisateur, Veuillez réessayer plus tard'});
                     });
                 } else {
                     return res.status(404).json({'status':404, 'response': 'Cet utilisateur n\'existe pas'});
