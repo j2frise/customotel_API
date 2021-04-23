@@ -146,9 +146,7 @@ module.exports = {
             // if (found) {
               return res.status(201).json({
                 'status':201,
-                'data': {
-                  'token': jwtUtils.generateTokenForHostel(found.hostelId, req.data.apiKey, found.userId)
-                }
+                'data': "test"
               });
               /*
             } else {
