@@ -50,7 +50,7 @@ module.exports = {
                 res.status(404).json({ "status": 404, "response": "Aucune correspondance trouvée" });
             }
           }).catch(function(err) {
-            res.status(500).json({"status": 500, "response": err+" => Erreur, veuillez réessayer plutard" });
+            res.status(500).json({"status": 500, "response": "Erreur, veuillez réessayer plutard" });
         });
     },
 
